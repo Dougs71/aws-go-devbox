@@ -29,7 +29,7 @@ resource "aws_instance" "example" {
   }
 
   provisioner "local-exec" {
-    command = "ansible-playbook -i \"${aws_instance.example.public_ip},\" -u ${var.INSTANCE_USERNAME} --private-key=${var.PATH_TO_PRIVATE_KEY} site.yml"
+    command = "ANSIBLE_HOST_KEY_CHECKING=False  ansible-playbook -i \"${aws_instance.example.public_ip},\" -u ${var.INSTANCE_USERNAME} --private-key=${var.PATH_TO_PRIVATE_KEY} site.yml"
   }
 
   connection {
