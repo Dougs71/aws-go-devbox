@@ -1,0 +1,13 @@
+---
+- hosts: all
+  become: yes
+  
+  tasks:
+    - name: Install httpd
+      yum:
+        name: httpd
+
+    - name: Start httpd service
+      service:
+        name: httpd
+        state: started

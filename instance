@@ -1,0 +1,35 @@
+#!/bin/bash
+
+case $1 in
+init)
+    terraform init
+    exit 0
+    ;;
+plan)
+    terraform plan
+    exit 0
+    ;;
+create)
+    terraform apply
+    exit 0
+    ;;
+destroy)
+    terraform destroy
+    exit 0
+    ;;
+start)
+    exit 0
+    aws ec2 start-instances --region eu-west-2 --instance-ids $( terraform output id )    ;;
+stop)
+    aws ec2 stop-instances --region eu-west-2 --instance-ids $( terraform output id )
+    exit 0
+    ;;
+ssh)
+    ssh -u centos@$( terraform output ip ) -i ~/.ssh/id_rsa
+    exit 0
+    ;;
+*)
+    echo "Invalid usage"
+    exit 1
+    ;;
+esac
