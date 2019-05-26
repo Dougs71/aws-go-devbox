@@ -18,14 +18,15 @@ destroy)
     exit 0
     ;;
 start)
+    aws ec2 start-instances --region eu-west-2 --instance-ids $( terraform output id )
     exit 0
-    aws ec2 start-instances --region eu-west-2 --instance-ids $( terraform output id )    ;;
+    ;;
 stop)
     aws ec2 stop-instances --region eu-west-2 --instance-ids $( terraform output id )
     exit 0
     ;;
 ssh)
-    ssh -u centos@$( terraform output ip ) -i ~/.ssh/id_rsa
+    ssh $( terraform output ip ) -l centos -i ~/.ssh/id_rsa
     exit 0
     ;;
 *)
